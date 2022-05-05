@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :attachments
   resources :comments
   resources :sub_tasks
   resources :tasks
@@ -10,5 +11,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  root to: "home#index"
+  devise_scope :user do
+    authenticated :user do
+      root to: 'home#index'
+    end
+    unauthenticated :user do
+      root to: 'devise/sessions#new', as: :unauthenticated_root
+    end
+  end
 end

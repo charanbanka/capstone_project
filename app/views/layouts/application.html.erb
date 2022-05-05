@@ -10,15 +10,31 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <body>
-  <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
- <%if user_signed_in?%>
-      <%=button_to "sign out", destroy_user_session_path, method: :delete%>
-    <%else%>
-      <%= link_to "log in", new_user_session_path%>
-      <%= link_to "sign up", new_user_registration_path%>
-    <%end%>
+  <body class=" bg-light">
+   
+    
+    <div class="d-flex flex-row bg-secondary justify-content-between">
+        <div >
+            <p><i class="bi bi-list"></i></p>
+        </div>
+        <div>
+            <span>Welcome <strong>
+            <%if user_signed_in?%>
+            <%=current_user.fullname%>
+            <%end%>
+            !</strong></span>
+            <i class="bi bi-star-fill"></i>
+           <i class="bi bi-chat-fill"></i>
+            <i class="bi bi-bell-fill"></i>
+        </div>
+    </div>
     <%= yield %>
+    <p class="login"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+
+        <%if user_signed_in?%>
+      <%=button_to "sign out", destroy_user_session_path, method: :delete%>
+      
+    <%end%>
   </body>
 </html>

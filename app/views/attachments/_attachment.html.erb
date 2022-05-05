@@ -1,0 +1,17 @@
+<div id="<%= dom_id attachment %>">
+<%if attachment.files.attached?%>
+    <div>
+    <% attachment.files.each do |file| %>
+        <%if file.image?%>
+            <%= image_tag(file, :width => 200) %>
+        <% elsif file.video? %>
+             <%= video_tag(url_for(file), :width => 200,controls: "" )%>
+        <% elsif file.audio? %>
+             <%= audio_tag(url_for(file), :width => 200,controls: "" )%>
+        <% else%>
+             <%= link_to file.filename, url_for(file), :width => 200 %>
+        <%end%>
+    <% end %>
+    </div>
+<%end%>
+</div>
