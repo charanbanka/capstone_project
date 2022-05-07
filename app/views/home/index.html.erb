@@ -10,8 +10,10 @@
             </button>
             
         </div>
-        <div>
-        <p class="text-primary p-4">+</p>
+        <div class="m-4 p-1 border rounded-circle">
+        <a class="text-decoration-none" href="<%= new_project_path %>">
+            +
+        </a>
         </div>
     </div>
     <div class="mt-2">
@@ -29,13 +31,18 @@
                     <div class="m-1 p-1">
                             <%@projects.each do |project|%>
                                 <%if project.status == phase.title%>
-                                    <div class="shadow col p-3 bg-white m-3 rounded">
+                                    
+                                    <div  class="shadow col p-3 bg-white m-3 rounded">
                                         <div class="d-flex justify-content-end">
                                             <span><i class="bi bi-list"></i></span>
                                         </div>
+                                    
                                         <div>
-                                            <h6><%=project.title%></h6>
-                                            <p><%=project.description%></p>
+                                    
+                                            <a class="text-decoration-none" href="<%= project_url(:id=>project.id) %>">
+                                            <h6 class="text-dark"><%=project.title%></h6>
+                                            <p class="text-secondary"><%=project.description%></p>
+                                            </a>
                                         </div>
                                         <div class="mt-3 d-flex justify-content-end">
                                             <span class="text-success"><i class="bi bi-person-fill"></i></span>

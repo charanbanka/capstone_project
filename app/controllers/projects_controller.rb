@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
   # GET /projects or /projects.json
   def index
     @projects = Project.all
+    
   end
 
   # GET /projects/1 or /projects/1.json
@@ -22,6 +23,14 @@ class ProjectsController < ApplicationController
   # POST /projects or /projects.json
   def create
     @project = Project.new(project_params)
+    @project.user = current_user
+    @phas
+    Phase.all.each do |phase|
+      if phase.title == @project.status
+        @phas = phase
+      end
+    end
+    @project.phase =@phas
 
     respond_to do |format|
       if @project.save

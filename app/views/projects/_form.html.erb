@@ -1,3 +1,4 @@
+ <div class="d-flex flex-column justify-content-center align-items-center" >
 <%= form_with(model: project) do |form| %>
   <% if project.errors.any? %>
     <div style="color: red">
@@ -11,27 +12,29 @@
     </div>
   <% end %>
 
-  <div>
+  <div class="mb-3">
     <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title ,placeholder:"Enter Title"%>
   </div>
 
-  <div>
+  <div class="mb-3">
     <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description,placeholder:"Enter description" %>
   </div>
 
-  <div>
+  <div class="mb-3">
     <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
+    <%= form.collection_select :status, Phase.all, :title, :title %>
   </div>
 
-  <div>
+  <div class="mb-3">
     <%= form.label :due_date, style: "display: block" %>
     <%= form.date_field :due_date %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="mb-3" >
+    
+    <button type="submit" class="btn btn-primary">create project</button>
   </div>
 <% end %>
+</div>

@@ -4,6 +4,7 @@ class TasksController < ApplicationController
   # GET /tasks or /tasks.json
   def index
     @tasks = Task.all
+    #@project = context[:project].params[:@project]
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -22,6 +23,17 @@ class TasksController < ApplicationController
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
+    @task.user = current_user
+    
+    @phase 
+    Phase.all.each do |phase|
+      if phase.title == @task.status
+        @phase = phase
+      end
+    end
+    @task.phase = @phase
+
+    
 
     respond_to do |format|
       if @task.save

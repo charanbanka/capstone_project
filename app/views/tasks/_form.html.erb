@@ -10,63 +10,70 @@
       </ul>
     </div>
   <% end %>
+  <div class="row m-5">
+  <div class="col">
+    <div class="mb-3">
+      <%= form.label :"Task Name", style: "display: block" %>
+      <%= form.text_field :title,placeholder:"Task Name" %>
+    </div>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+     <div class="mb-3">
+      <%= form.label :"story_point (1sp = 1hr)" , style: "display: block" %>
+      <%= form.text_field :story_point ,placeholder:1%>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :task_type, style: "display: block" %>
+      <%= form.text_field :task_type, placeholder:"Task"%>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :due_date, style: "display: block" %>
+      <%= form.date_field :due_date %>
+    </div>
   </div>
+    <div class="col">
+      <div class="mb-3">
+        <%= form.label :status, style: "display: block" %>
+        <%= form.collection_select :status, Phase.all, :title, :title %>
+      </div>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
+
+      <div class="mb-3">
+        <%= form.label :start_date, style: "display: block" %>
+        <%= form.date_field :start_date %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :"select member: +", style: "display: block" %>
+        <%= form.collection_select :select_member,User.all, :fullname,:fullname,{},{}%>
+      </div>
+
+      <div class="mb-3">
+      <%= form.label :description, style: "display: block" %>
+      <%= form.text_area :description , placeholder:"Description"%>
+    </div>
+    </div>
+    <div class="col">
+      <div class="mb-3">
+        <%= form.label :task_dependency, style: "display: block" %>
+        <%= form.text_field :task_dependency,placeholder:"Task Dependency" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :end_date, style: "display: block" %>
+        <%= form.date_field :end_date  %>
+      </div>
+
+
+      <div class="mb-3">
+        <%= form.label :"Task Priority", style: "display: block" %>
+        <%= form.text_field :priority %>
+      </div>
   </div>
-
-  <div>
-    <%= form.label :start_date, style: "display: block" %>
-    <%= form.date_field :start_date %>
-  </div>
-
-  <div>
-    <%= form.label :end_date, style: "display: block" %>
-    <%= form.date_field :end_date %>
-  </div>
-
-  <div>
-    <%= form.label :story_point, style: "display: block" %>
-    <%= form.text_field :story_point %>
-  </div>
-
-  <div>
-    <%= form.label :priority, style: "display: block" %>
-    <%= form.text_field :priority %>
-  </div>
-
-  <div>
-    <%= form.label :select_member, style: "display: block" %>
-    <%= form.text_field :select_member %>
-  </div>
-
-  <div>
-    <%= form.label :task_dependency, style: "display: block" %>
-    <%= form.text_field :task_dependency %>
-  </div>
-
-  <div>
-    <%= form.label :due_date, style: "display: block" %>
-    <%= form.date_field :due_date %>
-  </div>
-
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
-  </div>
-
-  <div>
-    <%= form.label :task_type, style: "display: block" %>
-    <%= form.text_field :task_type %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary">Create Task</button>
+    </div>
   </div>
 <% end %>

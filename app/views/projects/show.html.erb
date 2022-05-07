@@ -1,10 +1,57 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @project %>
-
-<div>
-  <%= link_to "Edit this project", edit_project_path(@project) %> |
-  <%= link_to "Back to projects", projects_path %>
-
-  <%= button_to "Destroy this project", @project, method: :delete %>
+<div class="m-5 col">
+  <div class="d-flex justify-content-between">
+    <div class="d-flex">
+      <span ><h5><%= @project.title%></h5></span>
+      <span>
+        <a class="text-decoration-none" href="<%= edit_project_url(:id=>@project.id) %>">
+          <i class="bi bi-pen-fill m-3"></i>
+          </a>
+          </span>
+    </div>
+    <div>
+      <a class="text-decoration-none" href="<%= root_url %>">
+        <i class="bi bi-arrow-left text-dark"></i>
+      </a>
+    </div>
+  </div>
+  <hr class="bg-secondary border-2 border-top border-secondary">
+  <div class="d-flex justify-content-between m-4">
+    <div>Task List</div>
+    <div>Audit Report</div>
+    <div>Upload Task</div>
+    <div>Task Report</div>
+    <div>User Report</div>
+    <div>Notification</div>
+    <div>Access Rights</div>
+    <div>Category Order</div>
+  </div>
+  <div class="text-decoration-none">
+    <a class="text-decoration-none" href="<%= new_task_path %>">
+          <span class="text-align-center border text-weight-bold p-1 rounded" style="color: #63C5DA">+ Add a Task</span>
+    </a>
+  </div>
+  <div class="row">
+    <%Phase.all.each do |phase|%>
+      <%if phase.title!="OnHold"%>
+       <div class="col bg-light m-2  shadow-sm">
+          <h6><%if phase.title == "New"%>
+            <%="Todo"%>
+          <%else%>
+            <%=phase.title%>
+          <%end%>  </h6>
+        </div>
+      <%end%>
+    <%end%>
+  <div>
 </div>
+
+
+<p style="color: green"><%= notice %></p>
+<h4><%= render @project %></h4>
+
+  <div>
+    <%= link_to "Edit this project", edit_project_path(@project) %> |
+    <%= link_to "Back to projects", projects_path %>
+
+    <%= button_to "Destroy this project", @project, method: :delete %>
+  </div>
