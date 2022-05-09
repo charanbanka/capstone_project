@@ -8,30 +8,30 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+   
   </head>
 
   <body class="position-absolute bg-light w-100">
    
     
-    <div class="d-flex flex-row bg-secondary justify-content-between">
+    <div class="d-flex flex-row align-items-center justify-content-between" style="background-color:#c9c9c9">
       <%if user_signed_in?%>
-        <div >
+        <div class="pt-3 ps-4 fs-4">
             <p><i class="bi bi-list"></i></p>
         </div>
-        <div>
-            <span>Welcome <strong>
+        <div class="pe-5 me-5">
+            <span class="pe-5">Welcome <strong>
             <%if user_signed_in?%>
               <%=current_user.fullname%>
             <%end%>!</strong></span>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-chat-fill"></i>
-            
-              <button type="button" class=" pl-3 ml-3">
-                  <i class="bi bi-bell-fill"></i>
-                  <span class="position-absolute top-0 start-100 translate-middle p-2 m-1 bg-secondary text-white border border-light rounded-pill">
+            <i class="bi bi-star-fill pe-5"></i>
+            <i class="bi bi-chat-fill pe-5"></i>
+            <i class="bi bi-bell-fill">
+            <span class="position-absolute top-25 start-25 translate-middle p-2 ms-2 bg-info text-white border border-light rounded-circle">
                     0
-                  </span>
-              </button>
+            </span>
+            </i>
+           
         </div>
         <%end%>
     </div>

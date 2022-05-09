@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_05_094357) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_09_063238) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,7 +39,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_094357) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-
+  create_table "add_details_to_tasks", force: :cascade do |t|
+    t.string "select_member"
+    t.string "task_dependency"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "attachments", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -95,7 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_094357) do
     t.string "priority"
     t.date "due_date"
     t.string "status"
-    t.string "task_type",default:"Task"
+    t.string "task_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "phase_id", null: false
@@ -103,6 +108,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_094357) do
     t.integer "project_id", null: false
     t.string "select_member"
     t.string "task_dependency"
+    t.integer "p_id"
     t.index ["phase_id"], name: "index_tasks_on_phase_id"
     t.index ["project_id"], name: "index_tasks_on_project_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"

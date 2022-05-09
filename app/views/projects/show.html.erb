@@ -16,8 +16,8 @@
   </div>
   <hr class="bg-secondary border-2 border-top border-secondary">
   <div class="d-flex justify-content-between m-4">
-    <div>Task List</div>
-    <div>Audit Report</div>
+    <div class="border border-info border-bottom-0 text-info p-1">Task List</div>
+    <div class="text-clr">Audit Report</div>
     <div>Upload Task</div>
     <div>Task Report</div>
     <div>User Report</div>
@@ -26,32 +26,58 @@
     <div>Category Order</div>
   </div>
   <div class="text-decoration-none">
-    <a class="text-decoration-none" href="<%= new_task_path %>">
-          <span class="text-align-center border text-weight-bold p-1 rounded" style="color: #63C5DA">+ Add a Task</span>
+    <a class="text-decoration-none" href="<%= new_task_path(:id =>@project.id) %>">
+          <span class="text-align-center border text-weight-bold p-1 rounded text-info" style="color: #63C5DA">+ Add a Task</span>
     </a>
   </div>
   <div class="row">
     <%Phase.all.each do |phase|%>
       <%if phase.title!="OnHold"%>
        <div class="col bg-light m-2  shadow-sm">
-          <h6><%if phase.title == "New"%>
+          <h6 class="font-weight-bold"><%if phase.title == "New"%>
             <%="Todo"%>
           <%else%>
             <%=phase.title%>
-          <%end%>  </h6>
+          <%end%> 
+          <%=" (#{@value} )"%>
+           </h6>
+          <div>
+          <%Task.all.each do |task|%>
+            <% if task.status == phase.title && task.project_id == @project.id%>
+            <div  class="shadow-sm border-info border col p-3 bg-white m-3 rounded">
+              <div class="d-flex justify-content-end">
+                
+                <span>
+                   <a class="text-decoration-none text-dark" href="<%= edit_task_url(:id=>task.id) %>">
+                    <i class="bi bi-pen-fill m-1"></i>
+                  </a>
+                </span>
+
+                <span>
+                   
+                  <i class="bi bi-trash-fill m-1"></i>
+                </span>
+
+                <span><i class="bi bi-list font-weight-bolder"></i></span>
+                
+              </div>
+              <div>                      
+              <p class="fs-5"><i class="bi bi-circle-fill" style="color : yellow"></i><%=" #{task.title} "%><i class="bi bi-hourglass-top"></i></p>
+              <p class="pt-1 fs-6"><i class="bi bi-person-fill text-info" style="color: #63C5DA"></i> <%= " #{task.select_member}" %></p>
+              </div>
+            </div>
+              
+            <%end%>
+          <%end%>
         </div>
+        </div>
+        
       <%end%>
     <%end%>
   <div>
+
+  
 </div>
 
 
 <p style="color: green"><%= notice %></p>
-<h4><%= render @project %></h4>
-
-  <div>
-    <%= link_to "Edit this project", edit_project_path(@project) %> |
-    <%= link_to "Back to projects", projects_path %>
-
-    <%= button_to "Destroy this project", @project, method: :delete %>
-  </div>

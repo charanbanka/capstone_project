@@ -25,12 +25,12 @@ Phase.delete_all
    
 end
 
-new1 = Phase.create(title:"New")
-onhold = Phase.create(title:"OnHold")
-inprogress = Phase.create(title:"InProgress")
-completed = Phase.create(title:"Completed")
+Phase.create(title:"New")
+Phase.create(title:"OnHold")
+Phase.create(title:"InProgress")
+Phase.create(title:"Completed")
 
-#total 20 projects will be generated
+# #total 20 projects will be generated
 
 User.all.each do |user|
     Phase.all.each do |phase|

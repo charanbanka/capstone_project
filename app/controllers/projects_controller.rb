@@ -4,20 +4,32 @@ class ProjectsController < ApplicationController
   # GET /projects or /projects.json
   def index
     @projects = Project.all
-    
+    @value =10
   end
 
   # GET /projects/1 or /projects/1.json
   def show
+    @value =10
+    @project_some = @project
+    @new_count =0
+    @inprogress_count =0
+    @completed_count = 0
+    
   end
 
   # GET /projects/new
   def new
     @project = Project.new
+    url = request.original_url
+    myArray = url.split('/')
+    @new = myArray.last == 'new'
   end
 
   # GET /projects/1/edit
   def edit
+    url = request.original_url
+    myArray = url.split('/')
+    @edit = myArray.last == 'edit'
   end
 
   # POST /projects or /projects.json

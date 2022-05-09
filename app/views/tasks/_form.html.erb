@@ -1,3 +1,4 @@
+ <div class="d-flex flex-column justify-content-center align-items-center border shadow-sm p-5" >
 <%= form_with(model: task) do |form| %>
   <% if task.errors.any? %>
     <div style="color: red">
@@ -24,7 +25,7 @@
 
     <div class="mb-3">
       <%= form.label :task_type, style: "display: block" %>
-      <%= form.text_field :task_type, placeholder:"Task"%>
+      <%= form.select :task_type, options_for_select(["Task","Task type 1","Task type 2"]) %>
     </div>
 
     <div class="mb-3">
@@ -35,7 +36,7 @@
     <div class="col">
       <div class="mb-3">
         <%= form.label :status, style: "display: block" %>
-        <%= form.collection_select :status, Phase.all, :title, :title %>
+        <%= form.collection_select :status, @phases, :title, :title %>
       </div>
 
 
@@ -68,12 +69,33 @@
 
       <div class="mb-3">
         <%= form.label :"Task Priority", style: "display: block" %>
-        <%= form.text_field :priority %>
+      <%= form.select :priority, options_for_select([["Select One",""],"low","medium","high"]) %>
       </div>
-  </div>
-  
-    <div class="mb-3">
-      <button type="submit" class="btn btn-primary">Create Task</button>
+      
+      <div class="mb-3">
+      
+      <%= form.hidden_field :p_id,value:@p_id %>
     </div>
   </div>
+  
+    <div class="mb-3 mt-3 d-flex align-items-center justify-content-center" >
+        <div class="me-5" >
+              <%if @new==true%>
+              <%= link_to "Back", project_url(:id=>@p_id)%>
+              <%else%>
+              <%=link_to "Back", project_url(:id=>@task.p_id)%>
+              <%end%>
+        </div>
+        <button type="submit" class="btn btn-primary">
+        <%if @edit==true%> 
+        <%="Update "%>
+        <%else%>
+        <%="Create "%>
+        <%end%>
+        Task
+        </button>
+  </div>
+
+  </div>
 <% end %>
+</div>

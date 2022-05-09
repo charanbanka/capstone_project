@@ -5,6 +5,7 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.all
     #@project = context[:project].params[:@project]
+    
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -13,18 +14,52 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
+    
     @task = Task.new
+    @p_id = params["id"]
+    puts "params:" 
+    puts @p_id
+
+    @phases = []
+    Phase.all.each do |phase|
+      if phase.title != "OnHold"
+        @phases << phase
+      end
+    end
+    
+    url = request.original_url
+
+    @new = url.include? "new"
+      
   end
 
   # GET /tasks/1/edit
   def edit
+    @phases = []
+    Phase.all.each do |phase|
+      if phase.title != "OnHold"
+        @phases << phase
+      end
+    end
+
+    url = request.original_url
+    myArray = url.split('/')
+    @edit = myArray.last == 'edit'
   end
 
   # POST /tasks or /tasks.json
   def create
+    
     @task = Task.new(task_params)
     @task.user = current_user
-    
+    @project_
+    Project.all.each do |p|
+      if p.id == @task.p_id
+        @project_ = p
+      end
+    end
+    @task.project = @project_
+
     @phase 
     Phase.all.each do |phase|
       if phase.title == @task.status
@@ -32,12 +67,12 @@ class TasksController < ApplicationController
       end
     end
     @task.phase = @phase
-
     
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to task_url(@task), notice: "Task was successfully created." }
+        format.html { redirect_to project_url(:id => @task.p_id), notice: "Task was successfully created." }
+      
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -77,6 +112,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :description, :start_date, :end_date, :story_point, :priority, :due_date, :status, :task_type, :select_member, :task_dependency)
+      params.require(:task).permit(:title, :description, :start_date, :end_date, :story_point, :priority, :due_date, :status, :task_type, :select_member, :task_dependency, :p_id,)
     end
 end

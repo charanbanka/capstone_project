@@ -1,4 +1,4 @@
- <div class="d-flex flex-column justify-content-center align-items-center" >
+ <div class="d-flex flex-column justify-content-center align-items-center border shadow-sm p-5" >
 <%= form_with(model: project) do |form| %>
   <% if project.errors.any? %>
     <div style="color: red">
@@ -32,9 +32,22 @@
     <%= form.date_field :due_date %>
   </div>
 
-  <div class="mb-3" >
-    
-    <button type="submit" class="btn btn-primary">create project</button>
+  <div class="mb-3 d-flex align-items-center justify-content-between" >
+    <div >
+          <%if @new==true%>
+          <%= link_to "Back", root_url%>
+          <%else%>
+          <%=link_to "Back", project_url(:id=>project.id)%>
+          <%end%>
+    </div>
+    <button type="submit" class="btn btn-primary">
+    <%if @edit==true%> 
+    <%="Update "%>
+    <%else%>
+    <%="Create "%>
+    <%end%>
+    project
+    </button>
   </div>
 <% end %>
 </div>
