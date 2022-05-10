@@ -79,3 +79,6 @@ end
 gem 'devise'
 
 gem 'byebug'
+
+gem 'jquery-rails'
+

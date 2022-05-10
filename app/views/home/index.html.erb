@@ -27,7 +27,7 @@
     <div class="mt-2">
         <div class="row">
             <%Phase.all.each do |phase|%>
-                <div class="col bg-light m-2 shadow-sm">
+                <div class="col bg-light m-2 shadow-sm phase_name" id="<%= phase.title%>" ondrop="drop(event)" ondragover="allowDrop(event)" >
                     <div class="mt-4 ml-4 pl-4">
                         <button type="button" class="btn btn-light position-relative pl-3 ml-3">
                         <%=phase.title%>
@@ -47,12 +47,12 @@
                     <div class="m-1 p-1">
                             <%@projects.each do |project|%>
                                 <%if project.status == phase.title%>
-                                    
-                                    <div  class="shadow col p-3 bg-white m-3 rounded">
+                                    <% id_name =  "project_id_#{project.id}" %>
+                                    <div id="<%=project.id%>" class="shadow col p-3 bg-white m-3 rounded project_id" draggable="true" ondragstart="drag(event)">
                                         <div class="d-flex justify-content-end">
                                             <span><i class="bi bi-list"></i></span>
                                         </div>
-                                    
+
                                         <div>
                                     
                                             <a class="text-decoration-none" href="<%= project_url(:id=>project.id) %>">
@@ -89,6 +89,42 @@
     </div>
     <%end%>
 </div>
+
+<script>
+
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+    var p_id = $(".project_id" ).attr('id')
+  ev.dataTransfer.setData("text", p_id);
+  
+  console.log(p_id)
+   var data = ev.dataTransfer.getData("text");
+  //console.log(data)
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  var dat = ev.target.id
+  console.log(dat,ev)
+  var p_name = $(".phase_name").attr('id')
+  console.log(p_name)
+  //console.log(data)
+  ev.target.appendChild(document.getElementById(data));
+}
+
+$(document).ready(function(){
+    
+    var p_id = $(".project_id" ).attr('id')
+    //console.log(p_id)
+    var p_name = $(".phase_name").attr('id')
+    //console.log(p_name)
+})
+
+</script>
 
 
 

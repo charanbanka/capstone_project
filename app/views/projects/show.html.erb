@@ -63,12 +63,33 @@
               </div>
               <div>                      
               <p class="fs-5"><i class="bi bi-circle-fill" style="color : yellow"></i><%=" #{task.title} "%><i class="bi bi-hourglass-top"></i></p>
-              <p class="pt-1 fs-6"><i class="bi bi-person-fill text-info" style="color: #63C5DA"></i> <%= " #{task.select_member}" %></p>
+              <p class=" fs-6"><i class="bi bi-person-fill text-info" style="color: #63C5DA"></i> <%= " #{task.select_member}" %></p>
+              <div class="p-1 border border-warning">
+                  <h6 class="text-warning p-2 pb-1">Sub Tasks</h6>
+                  <div >
+                    <%SubTask.all.each do |subtask|%>
+                      <% if subtask.task_id == task.id%>
+                        <div class=" p-3 m-2 border border-danger">
+                          <%= subtask.title%>
+                        </div>
+                      <%end%>
+                    <%end%>
+
+                  </div>
+              </div>
+
+              </div>
+
+              <div class="text-decoration-none pt-3">
+                <a class="text-decoration-none" href="<%= new_sub_task_path(:id =>task.id) %>">
+                      <span class="text-align-center border text-weight-bold p-1 rounded text-info" style="color: #63C5DA">Add a SubTask</span>
+                </a>
               </div>
             </div>
               
             <%end%>
           <%end%>
+          
         </div>
         </div>
         

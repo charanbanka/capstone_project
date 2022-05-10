@@ -13,6 +13,10 @@ class SubTasksController < ApplicationController
   # GET /sub_tasks/new
   def new
     @sub_task = SubTask.new
+    @task_id = params["id"]
+    url = request.original_url
+
+    @new = url.include? "new"
   end
 
   # GET /sub_tasks/1/edit
@@ -22,10 +26,12 @@ class SubTasksController < ApplicationController
   # POST /sub_tasks or /sub_tasks.json
   def create
     @sub_task = SubTask.new(sub_task_params)
+    
+    
 
     respond_to do |format|
       if @sub_task.save
-        format.html { redirect_to sub_task_url(@sub_task), notice: "Sub task was successfully created." }
+        format.html { redirect_to project_url(:id => @sub_task.task.project_id), notice: "Sub task was successfully created." }
         format.json { render :show, status: :created, location: @sub_task }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -65,6 +71,6 @@ class SubTasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def sub_task_params
-      params.require(:sub_task).permit(:title, :status)
+      params.require(:sub_task).permit(:title, :status,:task_id)
     end
 end

@@ -36,7 +36,7 @@
     <div class="col">
       <div class="mb-3">
         <%= form.label :status, style: "display: block" %>
-        <%= form.collection_select :status, @phases, :title, :title %>
+        <%= form.collection_select :status, Phase.all, :title, :title %>
       </div>
 
 
@@ -73,20 +73,23 @@
       </div>
       
       <div class="mb-3">
-      
-      <%= form.hidden_field :p_id,value:@p_id %>
+      <%if @new==true%>
+        <%= form.hidden_field :project_id,value:@p_id %>
+        <%else%>
+        <%= form.hidden_field :project_id,value:@task.project_id %>
+        <%end%>
     </div>
   </div>
   
     <div class="mb-3 mt-3 d-flex align-items-center justify-content-center" >
-        <div class="me-5" >
+        <div class="me-5 text-info" >
               <%if @new==true%>
-              <%= link_to "Back", project_url(:id=>@p_id)%>
+              <%= link_to "Back", url_for(:back)%>
               <%else%>
-              <%=link_to "Back", project_url(:id=>@task.p_id)%>
+              <%=link_to "Back", url_for(:back)%>
               <%end%>
         </div>
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-info">
         <%if @edit==true%> 
         <%="Update "%>
         <%else%>

@@ -1,9 +1,13 @@
-<h1>New sub task</h1>
 
-<%= render "form", sub_task: @sub_task %>
+<div class="mx-auto mt-5 pt-5 login d-flex flex-column justify-content-center align-items-center" 
+style="width: 550px; height: 650px; background:linear-gradient(90deg, rgba(238, 130, 238, 1) 0%, rgba(0, 0, 255, 1) 100%);">
+  <div class="bg-white p-5">
+    <h1 class="text-info" >New sub task</h1>
 
-<br>
+    <%= render "form", sub_task: @sub_task %>
 
-<div>
-  <%= link_to "Back to sub tasks", sub_tasks_path %>
+    <div class="d-flex align-items-center justify-content-center pt-2">
+      <%= link_to "Back to Task", url_for(:back) %>
+    </div>
+  </div>
 </div>

@@ -11,17 +11,29 @@
     </div>
   <% end %>
 
-  <div>
+  <div class="mb-2">
     <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title,placeholder:"title",style:"width:100%" %>
   </div>
 
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
+  <div class="mb-2">
+    <%= form.label :status, style: "display: block;width:100%" %>
+    <%= form.collection_select :status,Phase.all,:title,:title, style:"width:100%; height:60px" %>
   </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="mb-3">
+        <%if @new==true%>
+        <%= form.hidden_field :task_id,value:@task_id %>
+        <%else%>
+        <%= form.hidden_field :task_id,value:@sub_task.task_id %>
+        <%end%>
+      </div>
+    <div>
+    <button type="submit" class="btn btn-info w-100">
+    <% if @new==true %>
+      <%="Create "%>
+    <%else%>
+      <%="Update "%>
+      <%end%>
+       Sub Task</button>
   </div>
 <% end %>

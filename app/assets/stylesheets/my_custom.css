@@ -6,3 +6,11 @@
 .text-blue{
     color: blue;
 }
+
+.hidden {
+    display: none;
+}
+
+.flex-box {
+    display: flex;
+  }

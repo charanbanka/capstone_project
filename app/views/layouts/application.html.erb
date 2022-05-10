@@ -8,39 +8,58 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-   
+   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script> 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet"> 
   </head>
 
-  <body class="position-absolute bg-light w-100">
+  <body class="position-static bg-light w-100">
    
     
-    <div class="d-flex flex-row align-items-center justify-content-between" style="background-color:#c9c9c9">
+    <div class="d-flex flex-row align-items-center justify-content-between" 
+    style="background:linear-gradient(90deg, rgba(147, 144, 147, 1) 0%, rgba(220, 220, 217, 1) 100%);">
       <%if user_signed_in?%>
         <div class="pt-3 ps-4 fs-4">
-            <p><i class="bi bi-list"></i></p>
+            <a class="text-decoration-none text-dark" href="<%= root_url %>">
+        <i i class="bi bi-list"></i>
+      </a>
         </div>
-        <div class="pe-5 me-5">
+        <div class="pe-5 me-3">
             <span class="pe-5">Welcome <strong>
             <%if user_signed_in?%>
               <%=current_user.fullname%>
             <%end%>!</strong></span>
-            <i class="bi bi-star-fill pe-5"></i>
-            <i class="bi bi-chat-fill pe-5"></i>
-            <i class="bi bi-bell-fill">
-            <span class="position-absolute top-25 start-25 translate-middle p-2 ms-2 bg-info text-white border border-light rounded-circle">
-                    0
-            </span>
-            </i>
-           
+            <i class="bi bi-star-fill pe-5 fs-4"></i>
+            <i class="bi bi-chat-fill pe-5 fs-4"></i>
+            <i class="bi bi-bell-fill pe-5 fs-4"></i>
+            <span id="profile" style="cursor:pointer" ><i class="bi bi-person-circle fs-4" ></i></span>
+        </div>
+       
+
+        <div id="overlay" class="row bg-light shadow rounded pt-3 pb-3" style="position: fixed; display: none; text-align:center; width:200px; top: 54px; left: 85%;z-index: 2; ">
+          <span ><i class="bi bi-person-fill fs-4 pb-3"></i></span>
+          <span class="fs-5 pb-3"><%= current_user.fullname%></span>
+          <span class="pb-3">Change Password</span>
+          <span class="pb-3">Change Profile</span>
+          <span class="text-danger fs-5">
+          <%=button_to "Log out", destroy_user_session_path, method: :delete, style:"color:red;border-style:none;"%>
+          </span>
         </div>
         <%end%>
     </div>
     <%= yield %>
-    <p class="login"><%= notice %></p>
+    
        <p class="alert"><%= alert %></p>
-
-        <%if user_signed_in?%>
-      <%=button_to "sign out", destroy_user_session_path, method: :delete%>
-    <%end%>
+       <script type="text/javascript">
+        $(document).ready(function(){
+          $("#profile").click(function(){
+            $("#overlay").toggle();
+          });
+        });
+        </script>
   </body>
 </html>
