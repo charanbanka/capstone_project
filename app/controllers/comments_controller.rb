@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
+  protect_from_forgery with: :null_session
 
   # GET /comments or /comments.json
   def index
@@ -22,10 +23,10 @@ class CommentsController < ApplicationController
   # POST /comments or /comments.json
   def create
     @comment = Comment.new(comment_params)
-
+    
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to comment_url(@comment), notice: "Comment was successfully created." }
+        format.html { redirect_to project_url(:id=>@comment.task.project_id), notice: "Comment was successfully created." }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,7 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to comment_url(@comment), notice: "Comment was successfully updated." }
+        format.html { redirect_to request.original_url, notice: "Comment was successfully updated." }
         format.json { render :show, status: :ok, location: @comment }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -65,6 +66,6 @@ class CommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.require(:comment).permit(:body)
+      params.require(:comment).permit(:body,:user_id,:task_id)
     end
 end

@@ -15,15 +15,42 @@ Project.delete_all
 User.delete_all
 Phase.delete_all
 
-5.times do |i|
-    User.create(
-        fullname:"Charan Banka #{i}",
-        email:"charan#{i}@gmail.com",
+#first user
+User.create(
+        fullname:"Charan Banka",
+        email:"charan@gmail.com",
         password:"123456",
         password_confirmation:"123456"
-    )
-   
-end
+ )
+
+ #second user
+ User.create(
+    fullname:"Chandra Agarwala",
+    email:"chandra@gmail.com",
+    password:"123456",
+    password_confirmation:"123456"
+)
+
+User.create(
+    fullname:"Rajesh Pillai",
+    email:"rajesh@gmail.com",
+    password:"123456",
+    password_confirmation:"123456"
+)
+
+User.create(
+    fullname:"Amit Kumar",
+    email:"amit@gmail.com",
+    password:"123456",
+    password_confirmation:"123456"
+)
+
+User.create(
+    fullname:"Vaibhav Agarwal",
+    email:"vaibhav@gmail.com",
+    password:"123456",
+    password_confirmation:"123456"
+)
 
 Phase.create(title:"New")
 Phase.create(title:"OnHold")
@@ -35,10 +62,10 @@ Phase.create(title:"Completed")
 User.all.each do |user|
     Phase.all.each do |phase|
         Project.create(
-            title:"Project #{user.fullname} #{phase.title}",
+            title:"Project #{user.fullname}",
             description:"Project #{user.fullname} #{phase.title}",
             status:phase.title,
-            due_date:Date.new(2022,5,5),
+            due_date:Date.new(2022,5,16),
             user:user,
             phase:phase
         )

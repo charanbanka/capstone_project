@@ -14,6 +14,8 @@ class ProjectsController < ApplicationController
     @new_count =0
     @inprogress_count =0
     @completed_count = 0
+    @comment = Comment.new 
+
     
   end
 
