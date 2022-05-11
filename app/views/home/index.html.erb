@@ -27,7 +27,7 @@
     <div class="mt-2">
         <div class="row">
             <%Phase.all.each do |phase|%>
-                <div class="col bg-light m-2 shadow-sm phase_name" id="<%= phase.title%>" ondrop="drop(event)" ondragover="allowDrop(event)" >
+                <ul class="col bg-light m-2 shadow-sm phase_name" id="<%= phase.title%>" ondrop="drop(event)" ondragover="allowDrop(event)" >
                     <div class="mt-4 ml-4 pl-4">
                         <button type="button" class="btn btn-light position-relative pl-3 ml-3">
                         <%=phase.title%>
@@ -48,9 +48,21 @@
                             <%@projects.each do |project|%>
                                 <%if project.status == phase.title%>
                                     <% id_name =  "project_id_#{project.id}" %>
-                                    <div id="<%=project.id%>" class="shadow col p-3 bg-white m-3 rounded project_id" draggable="true" ondragstart="drag(event)">
+                                    <ul id="<%=project.id%>" class="shadow col p-3 bg-white m-3 rounded project_id" draggable="true" ondragstart="drag(event)">
                                         <div class="d-flex justify-content-end">
-                                            <span><i class="bi bi-list"></i></span>
+                                            <span id="phases_"  style="cursor:pointer"><i class="bi bi-list"></i></span>
+                                            <div style="display:none" id="phases_list" class="shadow p-1">
+                                                <%if project.status =="New"%>
+                                                   <p class="onhold_id" id="<%=project.id%>"  > <%="OnHold"%><br>
+                                                    <%="InProgress"%>
+                                                <%elsif phase.title == "OnHold"%>
+                                                    <%="New"%><br>
+                                                    <%="InProgress"%>
+                                                <%elsif phase.title == "InProgress"%>
+                                                    <%="OnHold"%><br>
+                                                    <%="Completed"%>
+                                                <%end%>
+                                            </div>
                                         </div>
 
                                         <div>
@@ -79,11 +91,11 @@
                                             <span class="text-warning"><i class="bi bi-clock-history"></i></span>
                                             <span class="text-danger"><i class="bi bi-clock"></i></span>
                                         </div>
-                                    </div>
+                                    </ul>
                                 <%end%>
                             <%end%>
                     </div>
-                </div>
+                </ul>
            <%end%>
         </div>
     </div>
@@ -116,14 +128,41 @@ function drop(ev) {
   ev.target.appendChild(document.getElementById(data));
 }
 
-$(document).ready(function(){
-    
-    var p_id = $(".project_id" ).attr('id')
-    //console.log(p_id)
-    var p_name = $(".phase_name").attr('id')
-    //console.log(p_name)
-})
 
+
+function phases_(){
+    var val = document.getElementById('phases_list').style.display
+    if(val =="none"){
+    document.getElementById('phases_list').style.display="block"
+    }
+    else {
+    document.getElementById('phases_list').style.display="none"}
+    // else
+    
+
+}
+$(document).ready(function(){
+    $(".onhold_id").click(function(e) {
+        e.preventDefault();
+        var id = $('.onhold_id').attr('id')
+        var project =projects.find(params[id])
+        project.status = "OnHold"
+        console.log(project)
+        $.ajax({
+            type: "PATCH",
+            url: "/project",
+            data: { 
+                 project
+            },
+            success: function(result) {
+                alert('ok');
+            },
+            error: function(result) {
+                alert('error');
+            }
+        });
+    });
+})
 </script>
 
 
